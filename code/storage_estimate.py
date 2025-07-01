@@ -45,7 +45,7 @@ plans = (
         "https://raw.githubusercontent.com/WCRP-CORDEX/simulation-status/refs/heads/main/CMIP6_downscaling_plans.csv",
         usecols=["domain", "institute", "experiment", "status", "comments"],
     )
-    .query('domain == "EUR-12"')
+    .query('domain.str.startswith("MED-")')
     .query('status in ["completed", "running"]')
     .query('~comments.str.contains("#ESD", na=False)')
     .query(experiment_query)
@@ -57,7 +57,8 @@ simulation_count = plans.pivot_table(
 ic(simulation_count)
 
 dreq = pd.read_csv(
-    "https://raw.githubusercontent.com/euro-cordex/joint-evaluation/refs/heads/main/dreq_EUR_joint_evaluation.csv"
+    # "https://raw.githubusercontent.com/Med-CORDEX/internal-data-request/refs/heads/main/dreq_MED_internal.csv"
+    "dreq_MED_internal.csv"
 )
 
 studies = set()
